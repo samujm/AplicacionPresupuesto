@@ -11,6 +11,7 @@ const egresos = [
 let cargarApp = () => {
     cargarCabecero();
     cargarIngresos();
+    cargarEgresos();
 }
 
 let totalIngresos = () => {
@@ -77,4 +78,33 @@ const crearIngresoHTML = (ingreso) => {
         </div>
     `
     return ingresoHTML;
+}
+
+
+const cargarEgresos = () => {
+    let egresosHTML = '';
+    for (let egreso of egresos) {
+        egresosHTML += crearEgresosHTML(egreso);
+    }
+
+    document.getElementById('lista-egresos').innerHTML = egresosHTML;
+}
+
+
+const crearEgresosHTML = (egreso) =>{
+    let egresoHTML = `
+            <div class="elemento limpiarEstilos">
+            <div class="elemento_descripcion">${egreso.descripcion}</div>
+            <div class="derecha limpiarEstilos">
+                <div class="elemento_valor">- ${formatoMoneda(egreso.valor)}</div>
+                <div class="elemento_porcentaje">${formatoPorcentaje(egreso.valor/totalEgresos())}</div>
+                <div class="elemento_eliminar">
+                    <button class="elemento_eliminar--btn">
+                        <ion-icon name="close-circle-outline"></ion-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `
+    return egresoHTML;
 }
